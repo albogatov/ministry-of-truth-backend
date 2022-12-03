@@ -27,6 +27,10 @@ public class CaseEntity {
     EmployeeEntity assignee;
     @Column(name = "assignee_id")
     Integer assigneeId;
+    @Column(name = "case_title", nullable = false)
+    String title;
+    @Column(name = "case_description")
+    String description;
 
     @OneToMany(mappedBy = "ministryCase")
     Set<CaseMediaEntity> caseMediaEntities;

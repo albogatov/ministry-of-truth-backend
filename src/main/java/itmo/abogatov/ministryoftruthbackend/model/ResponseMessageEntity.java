@@ -10,4 +10,11 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ResponseMessageEntity implements Serializable {
     private String message;
+    private Integer accessLevel;
+    private String authToken;
+
+
+    public ResponseMessageEntity(String message) {
+        this.message = message;
+    }
 }

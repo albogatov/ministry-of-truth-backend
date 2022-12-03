@@ -1,14 +1,21 @@
 package itmo.abogatov.ministryoftruthbackend.service.impl;
 
 import itmo.abogatov.ministryoftruthbackend.model.EmployeeEntity;
+import itmo.abogatov.ministryoftruthbackend.model.EmployeeProfileEntity;
+import itmo.abogatov.ministryoftruthbackend.repository.EmployeeProfileRepo;
+import itmo.abogatov.ministryoftruthbackend.repository.EmployeeRepo;
 import itmo.abogatov.ministryoftruthbackend.service.EmployeeProfileService;
 import itmo.abogatov.ministryoftruthbackend.service.EmployeeService;
 import itmo.abogatov.ministryoftruthbackend.transfer.EmployeeDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
+
+    @Autowired
+    private EmployeeRepo employeeRepo;
 
     @Override
     public EmployeeEntity prepareEntity(EmployeeDto data) {
@@ -40,5 +47,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setDepartmentId(entity.getDepartmentId());
         employee.setPositionId(entity.getPositionId());
         return employee;
+    }
+
+    public EmployeeEntity save(EmployeeEntity user) {
+        return employeeRepo.saveAndFlush(user);
     }
 }
