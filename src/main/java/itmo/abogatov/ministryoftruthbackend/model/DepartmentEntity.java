@@ -1,10 +1,13 @@
 package itmo.abogatov.ministryoftruthbackend.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Data
 @Table(name = "department", schema = "s312418", catalog = "studs")
 public class DepartmentEntity {
     Integer id;
@@ -14,6 +17,12 @@ public class DepartmentEntity {
     Timestamp dateTermination;
     DesignationEntity designation;
     MediaCategoryEntity mediaCategory;
+    @Id
+    @Column(name = "designation_id")
+    Integer designationId;
+    @Id
+    @Column(name = "media_category_id")
+    Integer mediaCategoryId;
 
     @Id
     @GeneratedValue

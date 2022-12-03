@@ -26,6 +26,9 @@ public class DeviceEntity {
     @OneToOne
     @JoinColumn(name = "maintainer_id", referencedColumnName = "id")
     EmployeeEntity maintainer;
+    @Id
+    @Column(name = "maintainer_id")
+    Integer maintainerId;
     @OneToMany(mappedBy = "device")
     Set<CaseDeviceEntity> caseDeviceEntities;
 

@@ -33,4 +33,13 @@ public class EmployeeEntity {
     @OneToOne
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     EmployeeProfileEntity employeeProfile;
+    @Id
+    @Column(name = "department_id")
+    Integer departmentId;
+    @Id
+    @Column(name = "position_id")
+    Integer positionId;
+    @Id
+    @Column(name = "profile_id")
+    Integer employeeProfileId;
 }

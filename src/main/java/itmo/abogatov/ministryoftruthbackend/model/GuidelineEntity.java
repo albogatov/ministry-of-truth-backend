@@ -22,8 +22,14 @@ public class GuidelineEntity {
     @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id")
     DepartmentEntity department;
+    @Id
+    @Column(name = "department_id")
+    Integer departmentId;
     @OneToOne
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     EmployeeEntity author;
+    @Id
+    @Column(name = "author_id")
+    Integer authorId;
 
 }

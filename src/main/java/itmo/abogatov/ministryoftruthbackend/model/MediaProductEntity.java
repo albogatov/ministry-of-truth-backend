@@ -31,4 +31,10 @@ public class MediaProductEntity {
     PublisherEntity publisher;
     @OneToMany(mappedBy = "media_product")
     Set<CaseMediaEntity> caseMediaEntities;
+    @Id
+    @Column(name = "media_category_id")
+    Integer mediaCategoryId;
+    @Id
+    @Column(name = "publisher_id")
+    Integer publisherId;
 }

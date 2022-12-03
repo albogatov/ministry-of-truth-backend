@@ -10,6 +10,12 @@ import javax.persistence.*;
 @Table(name = "case_device_relation", schema = "s312418", catalog = "studs")
 public class CaseDeviceEntity {
 
+    @Id
+    @Column(name = "device_id")
+    Integer deviceId;
+    @Id
+    @Column(name = "case_id")
+    Integer caseId;
     @ManyToOne
     @JoinColumn(name = "device_id", referencedColumnName = "id")
     DeviceEntity device;

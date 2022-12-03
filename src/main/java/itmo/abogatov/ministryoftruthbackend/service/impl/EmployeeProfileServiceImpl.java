@@ -18,12 +18,22 @@ public class EmployeeProfileServiceImpl implements EmployeeProfileService, UserD
 
     @Override
     public EmployeeProfileEntity prepareEntity(EmployeeProfileDto data) {
-        return null;
+        EmployeeProfileEntity employeeProfile = new EmployeeProfileEntity();
+        employeeProfile.setId(data.getId());
+        employeeProfile.setLogin(data.getLogin());
+        employeeProfile.setPassword(data.getPassword());
+        employeeProfile.setAuthToken(data.getAuthToken());
+        return employeeProfile;
     }
 
     @Override
     public EmployeeProfileDto prepareDto(EmployeeProfileEntity entity) {
-        return null;
+        EmployeeProfileDto employeeProfile = new EmployeeProfileDto();
+        employeeProfile.setId(entity.getId());
+        employeeProfile.setLogin(entity.getLogin());
+        employeeProfile.setPassword(entity.getPassword());
+        employeeProfile.setAuthToken(entity.getAuthToken());
+        return employeeProfile;
     }
 
     @Override

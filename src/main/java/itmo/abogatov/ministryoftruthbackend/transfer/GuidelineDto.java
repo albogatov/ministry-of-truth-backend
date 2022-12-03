@@ -1,4 +1,24 @@
 package itmo.abogatov.ministryoftruthbackend.transfer;
 
-public class GuidelineDto {
+import itmo.abogatov.ministryoftruthbackend.model.DepartmentEntity;
+import itmo.abogatov.ministryoftruthbackend.model.EmployeeEntity;
+import lombok.Data;
+import org.springframework.data.relational.core.sql.In;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+@Data
+public class GuidelineDto implements Serializable {
+
+
+    Integer id;
+
+    String name;
+    Timestamp releaseDate;
+    Integer newspeakVersion;
+    Integer departmentId;
+    Integer authorId;
+
 }

@@ -23,5 +23,7 @@ public class RuleEntity {
     @ManyToOne
     @JoinColumn(name = "guideline_id", referencedColumnName = "id")
     GuidelineEntity guideline;
-
+    @Id
+    @Column(name = "guideline_id")
+    Integer guidelineId;
 }

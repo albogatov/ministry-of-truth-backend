@@ -22,9 +22,12 @@ public class CaseEntity {
             "  \t'Reopened',\n" +
             "  \t'Frozen'))")
     String state;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "assignee_id", referencedColumnName = "id")
     EmployeeEntity assignee;
+    @Id
+    @Column(name = "assignee_id")
+    Integer assigneeId;
 
     @OneToMany(mappedBy = "ministry_case")
     Set<CaseMediaEntity> caseMediaEntities;
