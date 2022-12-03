@@ -23,16 +23,15 @@ public class CaseEntity {
             "  \t'Frozen'))")
     String state;
     @ManyToOne
-    @JoinColumn(name = "assignee_id", referencedColumnName = "id")
+    @JoinColumn(name = "assignee_id", referencedColumnName = "id", insertable = false, updatable = false)
     EmployeeEntity assignee;
-    @Id
     @Column(name = "assignee_id")
     Integer assigneeId;
 
-    @OneToMany(mappedBy = "ministry_case")
+    @OneToMany(mappedBy = "ministryCase")
     Set<CaseMediaEntity> caseMediaEntities;
 
-    @OneToMany(mappedBy = "ministry_case")
+    @OneToMany(mappedBy = "ministryCase")
     Set<CaseDeviceEntity> caseDeviceEntities;
 
 }

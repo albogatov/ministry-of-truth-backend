@@ -24,17 +24,17 @@ public class MediaProductEntity {
     @Column(name = "status", nullable = false, columnDefinition = "VARCHAR(32) NOT NULL  CHECK (STATUS IN ('Discovered', 'Processing', 'Redacted', 'Rereleased', 'Destroyed'))")
     String status;
     @ManyToOne
-    @JoinColumn(name = "media_category_id", referencedColumnName = "id")
+    @JoinColumn(name = "media_category_id", referencedColumnName = "id", insertable = false, updatable = false)
     MediaCategoryEntity mediaCategory;
     @ManyToOne
-    @JoinColumn(name = "publisher_id", referencedColumnName = "id")
+    @JoinColumn(name = "publisher_id", referencedColumnName = "id", insertable = false, updatable = false)
     PublisherEntity publisher;
-    @OneToMany(mappedBy = "media_product")
+    @OneToMany(mappedBy = "mediaProduct")
     Set<CaseMediaEntity> caseMediaEntities;
-    @Id
+
     @Column(name = "media_category_id")
     Integer mediaCategoryId;
-    @Id
+
     @Column(name = "publisher_id")
     Integer publisherId;
 }

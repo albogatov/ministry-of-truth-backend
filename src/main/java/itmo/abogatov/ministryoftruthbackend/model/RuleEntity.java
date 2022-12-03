@@ -21,9 +21,9 @@ public class RuleEntity {
     @Column(name = "punishment")
     String punishment;
     @ManyToOne
-    @JoinColumn(name = "guideline_id", referencedColumnName = "id")
+    @JoinColumn(name = "guideline_id", referencedColumnName = "id", insertable = false, updatable = false)
     GuidelineEntity guideline;
-    @Id
+
     @Column(name = "guideline_id")
     Integer guidelineId;
 }

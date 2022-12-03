@@ -3,7 +3,7 @@ package itmo.abogatov.ministryoftruthbackend.transfer;
 import itmo.abogatov.ministryoftruthbackend.model.DepartmentEntity;
 import itmo.abogatov.ministryoftruthbackend.model.EmployeeEntity;
 import lombok.Data;
-import org.springframework.data.relational.core.sql.In;
+
 
 import javax.persistence.*;
 import java.io.Serializable;

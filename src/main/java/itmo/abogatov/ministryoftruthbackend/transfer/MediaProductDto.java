@@ -4,7 +4,7 @@ import itmo.abogatov.ministryoftruthbackend.model.CaseMediaEntity;
 import itmo.abogatov.ministryoftruthbackend.model.MediaCategoryEntity;
 import itmo.abogatov.ministryoftruthbackend.model.PublisherEntity;
 import lombok.Data;
-import org.springframework.data.relational.core.sql.In;
+
 
 import javax.persistence.*;
 import java.io.Serializable;

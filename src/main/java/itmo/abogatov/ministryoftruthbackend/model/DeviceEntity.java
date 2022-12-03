@@ -24,9 +24,8 @@ public class DeviceEntity {
     @Column(name = "date_terminated")
     Timestamp dateTerminated;
     @OneToOne
-    @JoinColumn(name = "maintainer_id", referencedColumnName = "id")
+    @JoinColumn(name = "maintainer_id", referencedColumnName = "id", insertable = false, updatable = false)
     EmployeeEntity maintainer;
-    @Id
     @Column(name = "maintainer_id")
     Integer maintainerId;
     @OneToMany(mappedBy = "device")

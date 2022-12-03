@@ -11,6 +11,6 @@ public class CaseMediaEntityPK implements Serializable {
     @Column(name = "case_id", nullable = false)
     private Integer caseId;
     @Column(name = "media_id", nullable = false)
-    private Integer deviceId;
+    private Integer mediaId;
 
 }

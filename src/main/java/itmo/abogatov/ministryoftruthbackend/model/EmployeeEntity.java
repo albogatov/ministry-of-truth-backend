@@ -25,21 +25,21 @@ public class EmployeeEntity {
     @Column(name = "notes")
     String notes;
     @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    @JoinColumn(name = "department_id", referencedColumnName = "id", insertable = false, updatable = false)
     DepartmentEntity department;
     @ManyToOne
-    @JoinColumn(name = "position_id", referencedColumnName = "id")
+    @JoinColumn(name = "position_id", referencedColumnName = "id", insertable = false, updatable = false)
     PositionEntity position;
     @OneToOne
-    @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    @JoinColumn(name = "profile_id", referencedColumnName = "id", insertable = false, updatable = false)
     EmployeeProfileEntity employeeProfile;
-    @Id
+
     @Column(name = "department_id")
     Integer departmentId;
-    @Id
+
     @Column(name = "position_id")
     Integer positionId;
-    @Id
+
     @Column(name = "profile_id")
     Integer employeeProfileId;
 }

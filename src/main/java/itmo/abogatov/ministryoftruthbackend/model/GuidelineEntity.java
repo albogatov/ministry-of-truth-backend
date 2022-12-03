@@ -20,15 +20,15 @@ public class GuidelineEntity {
     @Column(name = "newspeak_version", columnDefinition = "INTEGER CHECK ( NEWSPEAK_VERSION IN (1, 2) )")
     Integer newspeakVersion;
     @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    @JoinColumn(name = "department_id", referencedColumnName = "id", insertable = false, updatable = false)
     DepartmentEntity department;
-    @Id
+
     @Column(name = "department_id")
     Integer departmentId;
     @OneToOne
-    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    @JoinColumn(name = "author_id", referencedColumnName = "id", insertable = false, updatable = false)
     EmployeeEntity author;
-    @Id
+
     @Column(name = "author_id")
     Integer authorId;
 
