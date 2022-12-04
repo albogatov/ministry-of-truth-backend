@@ -14,4 +14,8 @@ public class CaseDto implements Serializable {
     String state;
 
     Integer assigneeId;
+
+    String title;
+
+    String description;
 }

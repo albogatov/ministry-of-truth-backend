@@ -16,12 +16,12 @@ public class CaseMediaEntity {
     @Id
     @Column(name = "case_id")
     Integer caseId;
-    @ManyToOne
-    @JoinColumn(name = "media_id", referencedColumnName = "id", insertable = false, updatable = false)
-    MediaProductEntity mediaProduct;
-    @ManyToOne
-    @JoinColumn(name = "case_id", referencedColumnName = "id", insertable = false, updatable = false)
-    CaseEntity ministryCase;
+//    @ManyToOne
+//    @JoinColumn(name = "media_id", referencedColumnName = "id", insertable = false, updatable = false)
+//    MediaProductEntity mediaProduct;
+//    @ManyToOne
+//    @JoinColumn(name = "case_id", referencedColumnName = "id", insertable = false, updatable = false)
+//    CaseEntity ministryCase;
 
 
 }

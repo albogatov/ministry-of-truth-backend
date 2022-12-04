@@ -1,11 +1,14 @@
 package itmo.abogatov.ministryoftruthbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
+@JsonIdentityInfo(generator= ObjectIdGenerators.UUIDGenerator.class, property="@id")
 @Entity
 @Data
 @Table(name = "media_product", schema = "s312418", catalog = "studs")
@@ -29,7 +32,7 @@ public class MediaProductEntity {
     @ManyToOne
     @JoinColumn(name = "publisher_id", referencedColumnName = "id", insertable = false, updatable = false)
     PublisherEntity publisher;
-    @OneToMany(mappedBy = "mediaProduct")
+    @OneToMany(mappedBy = "mediaId")
     Set<CaseMediaEntity> caseMediaEntities;
 
     @Column(name = "media_category_id")

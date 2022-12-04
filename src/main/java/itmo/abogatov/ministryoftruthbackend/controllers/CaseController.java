@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/app/case")
+@RequestMapping(value = "/api/app/case/")
 public class CaseController {
 
     @Autowired
@@ -21,20 +21,22 @@ public class CaseController {
     private CaseService service;
 
 
-
-    @PostMapping("save")
+    @CrossOrigin
+    @PostMapping("/save")
     public ResponseEntity save(@RequestBody CaseDto data){
         repository.save(service.prepareEntity(data));
         return ResponseEntity.ok("");
     }
 
-    @GetMapping("all")
+    @CrossOrigin
+    @GetMapping("/all")
     public ResponseEntity getAllQueries(){
         List<CaseEntity> entityList = repository.findAll();
         return ResponseEntity.ok(entityList);
     }
 
-    @GetMapping("single")
+    @CrossOrigin
+    @GetMapping("/single")
     public ResponseEntity getById(@RequestBody IdDto data){
         CaseEntity entity = repository.findById(data.getId()).get();
         return ResponseEntity.ok(service.prepareDto(entity));

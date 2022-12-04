@@ -14,6 +14,8 @@ public class CaseServiceImpl implements CaseService {
         caseEntity.setId(data.getId());
         caseEntity.setState(data.getState());
         caseEntity.setAssigneeId(data.getAssigneeId());
+        caseEntity.setDescription(data.getDescription());
+        caseEntity.setTitle(data.getTitle());
         return caseEntity;
     }
 
@@ -23,6 +25,8 @@ public class CaseServiceImpl implements CaseService {
         caseDto.setId(entity.getId());
         caseDto.setState(entity.getState());
         caseDto.setAssigneeId(entity.getAssigneeId());
+        caseDto.setDescription(entity.getDescription());
+        caseDto.setTitle(entity.getTitle());
         return caseDto;
     }
 }
