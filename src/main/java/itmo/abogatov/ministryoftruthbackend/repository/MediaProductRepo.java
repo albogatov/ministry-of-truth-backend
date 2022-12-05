@@ -14,4 +14,6 @@ public interface MediaProductRepo extends CrudRepository<MediaProductEntity, Int
 
     @Override
     Optional<MediaProductEntity> findById(Integer id);
+
+    List<MediaProductEntity> findAllByPublisherId(Integer id);
 }

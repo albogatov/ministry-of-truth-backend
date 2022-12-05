@@ -7,6 +7,7 @@ import itmo.abogatov.ministryoftruthbackend.repository.MediaProductRepo;
 import itmo.abogatov.ministryoftruthbackend.service.impl.MediaProductServiceImpl;
 import itmo.abogatov.ministryoftruthbackend.transfer.CaseDto;
 import itmo.abogatov.ministryoftruthbackend.transfer.MediaProductDto;
+import itmo.abogatov.ministryoftruthbackend.transfer.PublisherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,13 @@ public class MediaProductController {
     public ResponseEntity save(@RequestBody MediaProductDto data){
         repository.save(service.prepareEntity(data));
         return ResponseEntity.ok("");
+    }
+
+    @CrossOrigin
+    @PostMapping("/publisher")
+    public ResponseEntity getByPublisher(@RequestBody PublisherDto data) {
+        List<MediaProductEntity> mediaProductEntities = repository.findAllByPublisherId(data.getId());
+        return ResponseEntity.ok(mediaProductEntities);
     }
 
 }
