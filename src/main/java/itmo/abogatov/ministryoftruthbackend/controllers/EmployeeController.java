@@ -6,12 +6,11 @@ import itmo.abogatov.ministryoftruthbackend.repository.CaseRepo;
 import itmo.abogatov.ministryoftruthbackend.repository.EmployeeRepo;
 import itmo.abogatov.ministryoftruthbackend.service.CaseService;
 import itmo.abogatov.ministryoftruthbackend.service.impl.EmployeeServiceImpl;
+import itmo.abogatov.ministryoftruthbackend.transfer.DepartmentDto;
+import itmo.abogatov.ministryoftruthbackend.transfer.EmployeeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -31,4 +30,13 @@ public class EmployeeController {
         List<EmployeeEntity> entityList = repository.findAll();
         return ResponseEntity.ok(entityList);
     }
+
+    @CrossOrigin
+    @PostMapping("/save")
+    public ResponseEntity save(@RequestBody EmployeeDto data){
+        repository.save(service.prepareEntity(data));
+        return ResponseEntity.ok("");
+    }
+
+
 }

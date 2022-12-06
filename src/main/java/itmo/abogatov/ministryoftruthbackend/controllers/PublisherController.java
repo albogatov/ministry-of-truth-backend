@@ -6,6 +6,7 @@ import itmo.abogatov.ministryoftruthbackend.repository.MediaProductRepo;
 import itmo.abogatov.ministryoftruthbackend.repository.PublisherRepo;
 import itmo.abogatov.ministryoftruthbackend.service.impl.MediaProductServiceImpl;
 import itmo.abogatov.ministryoftruthbackend.service.impl.PublisherServiceImpl;
+import itmo.abogatov.ministryoftruthbackend.transfer.EmployeeDto;
 import itmo.abogatov.ministryoftruthbackend.transfer.PublisherDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,12 @@ public class PublisherController {
     public ResponseEntity getAllQueries(){
         List<PublisherEntity> entityList = repository.findAll();
         return ResponseEntity.ok(entityList);
+    }
+
+    @CrossOrigin
+    @PostMapping("/save")
+    public ResponseEntity save(@RequestBody PublisherDto data){
+        repository.save(service.prepareEntity(data));
+        return ResponseEntity.ok("");
     }
 }
