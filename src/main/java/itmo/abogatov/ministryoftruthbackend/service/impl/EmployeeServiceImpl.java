@@ -50,6 +50,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public EmployeeEntity save(EmployeeEntity user) {
-        return employeeRepo.saveAndFlush(user);
+        return employeeRepo.save(user);
     }
 }

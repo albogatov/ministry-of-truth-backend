@@ -1,11 +1,15 @@
 package itmo.abogatov.ministryoftruthbackend.controllers;
 
+import itmo.abogatov.ministryoftruthbackend.model.EmployeeEntity;
+import itmo.abogatov.ministryoftruthbackend.model.EmployeeProfileEntity;
 import itmo.abogatov.ministryoftruthbackend.model.ResponseMessageEntity;
+import itmo.abogatov.ministryoftruthbackend.repository.EmployeeRepo;
 import itmo.abogatov.ministryoftruthbackend.security.jwt.JwtUtil;
 import itmo.abogatov.ministryoftruthbackend.service.impl.EmployeeProfileServiceImpl;
 import itmo.abogatov.ministryoftruthbackend.service.impl.EmployeeServiceImpl;
 import itmo.abogatov.ministryoftruthbackend.transfer.EmployeeDto;
 import itmo.abogatov.ministryoftruthbackend.transfer.EmployeeProfileDto;
+import itmo.abogatov.ministryoftruthbackend.transfer.RegisterDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +58,9 @@ public class EmployeeProfileController {
     @Autowired
     private EmployeeServiceImpl employeeService;
 
+    @Autowired
+    private EmployeeRepo employeeRepo;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody EmployeeProfileDto user){
         if (user.getLogin() == null || user.getPassword() == null) {
@@ -71,35 +78,55 @@ public class EmployeeProfileController {
         }
     }
 
-    @PostMapping("/startRegister")
-    public ResponseEntity register(@RequestBody EmployeeDto user){
-        logger.debug("registering user");
-        try {
-            logger.debug(user.toString());
-            if (user.getName() == null || user.getAge() == null || user.getName().trim().equals("")) {
-                logger.error("Absent name or age");
-                throw new IllegalArgumentException();
-            }
+//    @PostMapping("/startRegister")
+//    public ResponseEntity register(@RequestBody EmployeeDto user){
+//        logger.debug("registering user");
+//        try {
+//            logger.debug(user.toString());
+//            if (user.getName() == null || user.getAge() == null || user.getName().trim().equals("")) {
+//                logger.error("Absent name or age");
+//                throw new IllegalArgumentException();
+//            }
+//
+//            EmployeeEntity newEmployee = employeeRepo.save(employeeService.prepareEntity(user));
+//
+//
+//            return ResponseEntity.ok(newEmployee);
+//        } catch (IllegalArgumentException e) {
+//            logger.error("Invalid register");
+//            return new ResponseEntity<>(new ResponseMessageEntity("Invalid login or password", 1, ""), HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
-
-
+//    @PostMapping("/register")
+//    public ResponseEntity register(@RequestBody EmployeeProfileDto user){
+//        logger.debug("registering user");
+//        try {
+//            logger.debug(user.toString());
+//            if (user.getLogin() == null || user.getPassword() == null || user.getLogin().trim().equals("")
+//                    || user.getPassword().trim().equals("")) {
+//                logger.error("Absent login or password");
+//                throw new IllegalArgumentException();
+//            }
+//
 //            if (employeeProfileService.find(user.getLogin()) != null) {
 //                logger.error("Already registered" + employeeProfileService.find(user.getLogin()));
 //                return new ResponseEntity<>(new ResponseMessageEntity("User already registered"), HttpStatus.CONFLICT);
 //            }
 //            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            employeeService.save(employeeService.prepareEntity(user));
-
-            return new ResponseEntity<>(new ResponseMessageEntity("User successfully registered", 1, ""), HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            logger.error("Invalid register");
-            return new ResponseEntity<>(new ResponseMessageEntity("Invalid login or password", 1, ""), HttpStatus.BAD_REQUEST);
-        }
-    }
+//            employeeProfileService.save(employeeProfileService.prepareEntity(user));
+//            return new ResponseEntity<>(new ResponseMessageEntity("User successfully registered"), HttpStatus.OK);
+//        } catch (IllegalArgumentException e) {
+//            logger.error("Invalid register");
+//            return new ResponseEntity<>(new ResponseMessageEntity("Invalid login or password"), HttpStatus.BAD_REQUEST);
+//        }
+//    }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody EmployeeProfileDto user){
+    public ResponseEntity register(@RequestBody RegisterDto data){
         logger.debug("registering user");
+        EmployeeProfileDto user = data.getEmployeeProfileDto();
+        EmployeeDto employeeDto = data.getEmployeeDto();
         try {
             logger.debug(user.toString());
             if (user.getLogin() == null || user.getPassword() == null || user.getLogin().trim().equals("")
@@ -113,8 +140,9 @@ public class EmployeeProfileController {
                 return new ResponseEntity<>(new ResponseMessageEntity("User already registered"), HttpStatus.CONFLICT);
             }
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-            employeeProfileService.save(employeeProfileService.prepareEntity(user));
-
+            EmployeeProfileEntity userEntity = employeeProfileService.save(employeeProfileService.prepareEntity(user));
+            employeeDto.setEmployeeProfileId(userEntity.getId());
+            employeeRepo.save(employeeService.prepareEntity(employeeDto));
             return new ResponseEntity<>(new ResponseMessageEntity("User successfully registered"), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             logger.error("Invalid register");
