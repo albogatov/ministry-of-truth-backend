@@ -72,55 +72,13 @@ public class EmployeeProfileController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, user.getPassword()));
             String token = jwtUtil.resolveToken(login);
             System.out.println(token);
-            return new ResponseEntity<>(new ResponseMessageEntity(token), HttpStatus.OK);
+            EmployeeProfileEntity employeeProfile = employeeProfileService.prepareEntity(user);
+            EmployeeEntity employee = employeeRepo.findByProfileId(employeeProfile.getId());
+            return new ResponseEntity<>(new ResponseMessageEntity(token, employee.getPosition().getAccessLevel()), HttpStatus.OK);
         } catch (AuthenticationException e) {
             return new ResponseEntity<>(new ResponseMessageEntity("Wrong login or password"), HttpStatus.UNAUTHORIZED);
         }
     }
-
-//    @PostMapping("/startRegister")
-//    public ResponseEntity register(@RequestBody EmployeeDto user){
-//        logger.debug("registering user");
-//        try {
-//            logger.debug(user.toString());
-//            if (user.getName() == null || user.getAge() == null || user.getName().trim().equals("")) {
-//                logger.error("Absent name or age");
-//                throw new IllegalArgumentException();
-//            }
-//
-//            EmployeeEntity newEmployee = employeeRepo.save(employeeService.prepareEntity(user));
-//
-//
-//            return ResponseEntity.ok(newEmployee);
-//        } catch (IllegalArgumentException e) {
-//            logger.error("Invalid register");
-//            return new ResponseEntity<>(new ResponseMessageEntity("Invalid login or password", 1, ""), HttpStatus.BAD_REQUEST);
-//        }
-//    }
-
-//    @PostMapping("/register")
-//    public ResponseEntity register(@RequestBody EmployeeProfileDto user){
-//        logger.debug("registering user");
-//        try {
-//            logger.debug(user.toString());
-//            if (user.getLogin() == null || user.getPassword() == null || user.getLogin().trim().equals("")
-//                    || user.getPassword().trim().equals("")) {
-//                logger.error("Absent login or password");
-//                throw new IllegalArgumentException();
-//            }
-//
-//            if (employeeProfileService.find(user.getLogin()) != null) {
-//                logger.error("Already registered" + employeeProfileService.find(user.getLogin()));
-//                return new ResponseEntity<>(new ResponseMessageEntity("User already registered"), HttpStatus.CONFLICT);
-//            }
-//            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//            employeeProfileService.save(employeeProfileService.prepareEntity(user));
-//            return new ResponseEntity<>(new ResponseMessageEntity("User successfully registered"), HttpStatus.OK);
-//        } catch (IllegalArgumentException e) {
-//            logger.error("Invalid register");
-//            return new ResponseEntity<>(new ResponseMessageEntity("Invalid login or password"), HttpStatus.BAD_REQUEST);
-//        }
-//    }
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterDto data){
