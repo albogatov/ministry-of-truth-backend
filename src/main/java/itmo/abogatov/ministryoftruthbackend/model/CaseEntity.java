@@ -38,7 +38,7 @@ public class CaseEntity {
     @OneToMany(mappedBy = "caseId")
     Set<CaseMediaEntity> caseMediaEntities;
 
-    @OneToMany(mappedBy = "ministryCase")
+    @OneToMany(mappedBy = "caseId")
     Set<CaseDeviceEntity> caseDeviceEntities;
 
 }

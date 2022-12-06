@@ -28,7 +28,7 @@ public class DeviceEntity {
     EmployeeEntity maintainer;
     @Column(name = "maintainer_id")
     Integer maintainerId;
-    @OneToMany(mappedBy = "device")
+    @OneToMany(mappedBy = "deviceId")
     Set<CaseDeviceEntity> caseDeviceEntities;
 
 }
