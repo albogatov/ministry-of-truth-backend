@@ -35,8 +35,9 @@ public class EmployeeController {
     @CrossOrigin
     @PostMapping("/save")
     public ResponseEntity save(@RequestBody EmployeeDto data){
-        repository.save(service.prepareEntity(data));
-        return ResponseEntity.ok("");
+        if(repository.save(service.prepareEntity(data)) != null)
+            return ResponseEntity.ok("");
+        else return ResponseEntity.ok("Entered employee data is incorrect, please revise and refer to your department's guideline");
     }
 
     @CrossOrigin

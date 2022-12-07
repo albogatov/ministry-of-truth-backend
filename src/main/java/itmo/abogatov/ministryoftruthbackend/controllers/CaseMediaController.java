@@ -49,9 +49,12 @@ public class CaseMediaController {
     @CrossOrigin
     @PostMapping("/save")
     public ResponseEntity save(@RequestBody CaseMediaDto data) {
-        repository.save(service.prepareEntity(data));
-        System.out.println(repository.findById(data.getCaseId()));
-        return ResponseEntity.ok("");
+        try {
+            repository.save(service.prepareEntity(data)) ;
+            return ResponseEntity.ok("");
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.getCause());
+        }
     }
 
     @CrossOrigin

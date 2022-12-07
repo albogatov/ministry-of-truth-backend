@@ -33,8 +33,13 @@ public class MediaProductController {
     @CrossOrigin
     @PostMapping("/save")
     public ResponseEntity save(@RequestBody MediaProductDto data){
-        repository.save(service.prepareEntity(data));
-        return ResponseEntity.ok("");
+        try {
+            MediaProductEntity mediaProduct = repository.save(service.prepareEntity(data));
+            return ResponseEntity.ok("");
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.getCause());
+        }
+
     }
 
     @CrossOrigin

@@ -26,16 +26,20 @@ public class DepartmentController {
 
     @CrossOrigin
     @GetMapping("/all")
-    public ResponseEntity getAllQueries(){
+    public ResponseEntity getAllQueries() {
         List<DepartmentEntity> entityList = repository.findAll();
         return ResponseEntity.ok(entityList);
     }
 
     @CrossOrigin
     @PostMapping("/save")
-    public ResponseEntity save(@RequestBody DepartmentDto data){
-        repository.save(service.prepareEntity(data));
-        return ResponseEntity.ok("");
+    public ResponseEntity save(@RequestBody DepartmentDto data) {
+        try {
+            repository.save(service.prepareEntity(data));
+            return ResponseEntity.ok("");
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.getCause());
+        }
     }
 
     @CrossOrigin
