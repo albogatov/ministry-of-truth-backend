@@ -3,6 +3,7 @@ package itmo.abogatov.ministryoftruthbackend.controllers;
 import itmo.abogatov.ministryoftruthbackend.model.EmployeeEntity;
 import itmo.abogatov.ministryoftruthbackend.model.EmployeeProfileEntity;
 import itmo.abogatov.ministryoftruthbackend.model.ResponseMessageEntity;
+import itmo.abogatov.ministryoftruthbackend.repository.EmployeeProfileRepo;
 import itmo.abogatov.ministryoftruthbackend.repository.EmployeeRepo;
 import itmo.abogatov.ministryoftruthbackend.security.jwt.JwtUtil;
 import itmo.abogatov.ministryoftruthbackend.service.impl.EmployeeProfileServiceImpl;
@@ -13,26 +14,17 @@ import itmo.abogatov.ministryoftruthbackend.transfer.RegisterDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.persistence.NonUniqueResultException;
-import java.util.HashMap;
-import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -61,6 +53,9 @@ public class EmployeeProfileController {
     @Autowired
     private EmployeeRepo employeeRepo;
 
+    @Autowired
+    private EmployeeProfileRepo employeeProfileRepo;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody EmployeeProfileDto user){
         if (user.getLogin() == null || user.getPassword() == null) {
@@ -72,8 +67,11 @@ public class EmployeeProfileController {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, user.getPassword()));
             String token = jwtUtil.resolveToken(login);
             System.out.println(token);
-            EmployeeProfileEntity employeeProfile = employeeProfileService.prepareEntity(user);
-            EmployeeEntity employee = employeeRepo.findByProfileId(employeeProfile.getId());
+            //EmployeeProfileEntity employeeProfile = employeeProfileService.prepareEntity(user);
+            EmployeeProfileEntity employeeProfile = employeeProfileRepo.findByLogin(user.getLogin());
+            System.out.println("id EEE" + employeeProfile.getId());
+            EmployeeEntity employee = employeeRepo.findByEmployeeProfileId(employeeProfile.getId());
+            System.out.println(employee.getPosition().getAccessLevel());
             return new ResponseEntity<>(new ResponseMessageEntity(token, employee.getPosition().getAccessLevel()), HttpStatus.OK);
         } catch (AuthenticationException e) {
             return new ResponseEntity<>(new ResponseMessageEntity("Wrong login or password"), HttpStatus.UNAUTHORIZED);

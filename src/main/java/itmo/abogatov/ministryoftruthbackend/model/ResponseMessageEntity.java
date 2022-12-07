@@ -20,5 +20,8 @@ public class ResponseMessageEntity implements Serializable {
 
     public ResponseMessageEntity(String message, Integer accessLevel) {
         this.message = message;
+        if (accessLevel != null)
+        this.accessLevel = accessLevel;
+        else this.accessLevel = 1;
     }
 }

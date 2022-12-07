@@ -14,5 +14,5 @@ public interface EmployeeRepo extends CrudRepository<EmployeeEntity, Integer> {
     @Override
     List<EmployeeEntity> findAll();
 
-    EmployeeEntity findByProfileId(Integer id);
+    EmployeeEntity findByEmployeeProfileId(Integer id);
 }
