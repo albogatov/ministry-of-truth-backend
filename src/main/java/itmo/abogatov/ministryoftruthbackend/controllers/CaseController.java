@@ -24,6 +24,8 @@ public class CaseController {
     @CrossOrigin
     @PostMapping("/save")
     public ResponseEntity save(@RequestBody CaseDto data){
+        if(data.getState() == "Closed")
+            repository.closeCase(data.getId());
         repository.save(service.prepareEntity(data));
         return ResponseEntity.ok("");
     }
