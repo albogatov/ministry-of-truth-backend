@@ -15,7 +15,7 @@ public class DataSourceConfig {
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
         dataSourceBuilder.url("jdbc:postgresql://localhost:7788/studs");
         dataSourceBuilder.username("s312418");
-        dataSourceBuilder.password("***");
+        dataSourceBuilder.password("");
         return dataSourceBuilder.build();
     }
 }
