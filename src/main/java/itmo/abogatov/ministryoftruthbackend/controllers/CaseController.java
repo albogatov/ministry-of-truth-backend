@@ -24,8 +24,9 @@ public class CaseController {
     @CrossOrigin
     @PostMapping("/save")
     public ResponseEntity save(@RequestBody CaseDto data){
-        if(data.getState() == "Closed")
+        if(data.getState().equals("Closed")) {
             repository.closeCase(data.getId());
+        }
         if(repository.save(service.prepareEntity(data)) != null)
             return ResponseEntity.ok("");
         else return ResponseEntity.ok("Entered case data is incorrect, please revise and refer to your department's guideline");
