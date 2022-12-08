@@ -62,7 +62,6 @@ public class JwtUtil {
 
     public String resolveToken(String login) {
         EmployeeProfileEntity user = employeeProfileService.find(login);
-        System.out.println(user);
         String token = null;
         token = generateJwtToken(login);
 

@@ -66,12 +66,8 @@ public class EmployeeProfileController {
             String login = user.getLogin();
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, user.getPassword()));
             String token = jwtUtil.resolveToken(login);
-            System.out.println(token);
-            //EmployeeProfileEntity employeeProfile = employeeProfileService.prepareEntity(user);
             EmployeeProfileEntity employeeProfile = employeeProfileRepo.findByLogin(user.getLogin());
-            System.out.println("id EEE" + employeeProfile.getId());
             EmployeeEntity employee = employeeRepo.findByEmployeeProfileId(employeeProfile.getId());
-            System.out.println(employee.getPosition().getAccessLevel());
             return new ResponseEntity<>(new ResponseMessageEntity(token, employee.getPosition().getAccessLevel()), HttpStatus.OK);
         } catch (AuthenticationException e) {
             return new ResponseEntity<>(new ResponseMessageEntity("Wrong login or password"), HttpStatus.UNAUTHORIZED);

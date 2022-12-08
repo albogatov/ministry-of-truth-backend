@@ -49,7 +49,6 @@ public class CaseDeviceController {
     @PostMapping("/delete")
     public ResponseEntity delete(@RequestBody CaseDeviceDto data) {
         repository.delete(service.prepareEntity(data));
-        System.out.println(repository.findById(data.getCaseId()));
         return ResponseEntity.ok("");
     }
 
